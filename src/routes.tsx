@@ -8,11 +8,14 @@ import {
   MdHome,
 } from "react-icons/md";
 import TokenDetail from "views/forum/token";
-import ProfileDetail from "views/forum/profile";
+import ProfileDetail from "views/users/profile";
 import Leaderboard from "views/leaderboard";
 import CopyTrading from "views/copytrading";
 import LoginPage from "views/login";
 import Dashboard from "views/dashboard";
+import Users from "views/users";
+import Calls from "views/calls";
+import Announcements from "views/announcements";
 
 const routes = [
   {
@@ -22,28 +25,28 @@ const routes = [
     component: <Dashboard />,
   },
   {
-    key: "token",
-    layout: "",
-    path: "token/*",
-    component: <TokenDetail />,
+    key: "users",
+    layout: "admin",
+    path: "users",
+    component: <Users />,
   },
   {
     key: "profile",
-    layout: "",
+    layout: "admin",
     path: "profile/*",
     component: <ProfileDetail />,
   },
   {
-    key: "leaderboard",
-    layout: "",
-    path: "leaderboard",
-    component: <Leaderboard />,
+    key: "calls",
+    layout: "admin",
+    path: "calls",
+    component: <Calls />,
   },
   {
-    key: "copytrading",
-    layout: "",
-    path: "copytrading",
-    component: <CopyTrading />,
+    key: "announcements",
+    layout: "admin",
+    path: "announcements",
+    component: <Announcements />,
   },
 ];
 export default routes;
