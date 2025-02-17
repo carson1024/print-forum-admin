@@ -112,7 +112,7 @@ const MyProfile = (props: {
               </div>
             </div>
             <div className="rounded-[25px] bg-dark3 text-white p-4 space-y-2.5">
-              <span>Archievements</span>
+              <span>Achievements</span>
               <div className="flex justify-between">
                 <div className="flex gap-2">
                   <span className="badge-money-50k"></span>

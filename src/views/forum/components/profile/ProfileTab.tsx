@@ -63,7 +63,7 @@ const ProfileTab = () => {
             </div>
           </div>
           <div className="rounded-[22px] bg-gray-50 text-white p-4 space-y-2.5">
-            <span>Archievements</span>
+            <span>Achievements</span>
             <div className="flex justify-between">
               <div className="flex gap-2">
                 <span className="badge-money-50k"></span>

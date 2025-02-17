@@ -3,8 +3,19 @@ import IconTelegram from 'assets/img/icons/telegram.svg';
 import IconSolana from 'assets/img/icons/solana.svg';
 import { AiFillCaretUp } from 'react-icons/ai';
 import { MdEdit } from 'react-icons/md';
+import { useState } from 'react';
+import EditDescriptionModal from 'components/modal/profile/EditDescriptionModal';
+import EditLinkModal from 'components/modal/profile/EditLinkModal';
+import EditRankModal from 'components/modal/profile/EditRankModal';
+import EditAchievementsModal from 'components/modal/profile/EditAchievementsModal';
+import AchievementsModal from 'components/modal/profile/AchievementsModal';
 
 const GeneralTab = () => {
+  const [isEditDescriptionModalOpen, setIsEditDescriptionModalOpen] = useState(false);
+  const [isEditLinkModalOpen, setIsEditLinkModalOpen] = useState(false);
+  const [isEditRankModalOpen, setIsEditRankModalOpen] = useState(false);
+  const [isEditAchievementsModalOpen, setIsEditAchievementsModalOpen] = useState(false);
+
   return (<>
     <div className="overflow-auto h-full p-6 text-white">
       <div className='grid grid-cols-2 gap-5'>
@@ -54,7 +65,7 @@ const GeneralTab = () => {
           <div className='rounded-[20px] p-6 space-y-4 bg-gray-50'>
             <div className='flex justify-between'>
               <div className='text-md font-semibold'>Description</div>
-              <button className="btn px-3 py-1.5 text-sm btn-outline">
+              <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditDescriptionModalOpen(true)}>
                 <MdEdit className="mr-1" size={16} /> Edit
               </button>
             </div>
@@ -65,7 +76,7 @@ const GeneralTab = () => {
           <div className='rounded-[20px] p-6 space-y-6 bg-gray-50'>
             <div className='flex justify-between'>
               <div className='text-md font-semibold'>Links</div>
-              <button className="btn px-3 py-1.5 text-sm btn-outline">
+              <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditLinkModalOpen(true)}>
                 <MdEdit className="mr-1" size={16} /> Edit
               </button>
             </div>
@@ -78,6 +89,7 @@ const GeneralTab = () => {
                     type="text"
                     placeholder="example@email.com"
                     className="bg-transparent flex-grow outline-none text-white placeholder-gray-500 text-sm"
+                    disabled
                   />
                 </div>
 
@@ -87,6 +99,7 @@ const GeneralTab = () => {
                     type="text"
                     placeholder="t.com/username"
                     className="bg-transparent flex-grow outline-none text-white placeholder-gray-500 text-sm"
+                    disabled
                   />
                 </div>
 
@@ -107,7 +120,7 @@ const GeneralTab = () => {
           <div className="p-6 rounded-[20px] bg-gray-50 space-y-4">
             <div className='flex justify-between'>
               <div className='text-md font-semibold'>Rank progression</div>
-              <button className="btn px-3 py-1.5 text-sm btn-outline">
+              <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditRankModalOpen(true)}>
                 <MdEdit className="mr-1" size={16} /> Edit
               </button>
             </div>
@@ -133,8 +146,8 @@ const GeneralTab = () => {
           </div>
           <div className="rounded-[20px] bg-gray-50 text-white p-6 space-y-4">
             <div className='flex justify-between'>
-              <div className='text-md font-semibold'>Archievements</div>
-              <button className="btn px-3 py-1.5 text-sm btn-outline">
+              <div className='text-md font-semibold'>Achievements</div>
+              <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditAchievementsModalOpen(true)}>
                 <MdEdit className="mr-1" size={16} /> Edit
               </button>
             </div>
@@ -158,9 +171,6 @@ const GeneralTab = () => {
                 <span className="badge-other-bughunter"></span>
                 <span className="badge-money-50k"></span>
                 <span className="badge-register-1m"></span>
-                <span className="badge-social-twitter"></span>
-                <span className="badge-social-telegram"></span>
-                <span className="badge-social-solana"></span>
                 <span className="badge-call-10X"></span>
                 <span className="badge-user-50"></span>
                 <button className="w-8 h-8 text-xs font-bold bg-white circle-item text-black">+5</button>
@@ -170,6 +180,10 @@ const GeneralTab = () => {
         </div>
       </div>
     </div>
+    <EditDescriptionModal isOpen={isEditDescriptionModalOpen} onOk={() => setIsEditDescriptionModalOpen(false)} onCancel={() => setIsEditDescriptionModalOpen(false)} />
+    <EditLinkModal isOpen={isEditLinkModalOpen} onOk={() => setIsEditLinkModalOpen(false)} onCancel={() => setIsEditLinkModalOpen(false)} />
+    <EditRankModal isOpen={isEditRankModalOpen} onAdd={() => setIsEditRankModalOpen(false)} onRemove={() => setIsEditRankModalOpen(false)} onCancel={() => setIsEditRankModalOpen(false)} />
+    <AchievementsModal isOpen={isEditAchievementsModalOpen} onCancel={() => setIsEditAchievementsModalOpen(false)} />
   </>);
 }
 

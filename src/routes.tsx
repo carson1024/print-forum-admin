@@ -7,7 +7,7 @@ import ForumList from "views/forum/list";
 import {
   MdHome,
 } from "react-icons/md";
-import TokenDetail from "views/forum/token";
+import TokenDetail from "views/calls/token";
 import ProfileDetail from "views/users/profile";
 import Leaderboard from "views/leaderboard";
 import CopyTrading from "views/copytrading";
@@ -31,7 +31,7 @@ const routes = [
     component: <Users />,
   },
   {
-    key: "profile",
+    key: "users",
     layout: "admin",
     path: "profile/*",
     component: <ProfileDetail />,
@@ -41,6 +41,12 @@ const routes = [
     layout: "admin",
     path: "calls",
     component: <Calls />,
+  },
+  {
+    key: "calls",
+    layout: "admin",
+    path: "token/*",
+    component: <TokenDetail />,
   },
   {
     key: "announcements",

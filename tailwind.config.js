@@ -40,6 +40,7 @@ module.exports = {
         dark1: "#1C1B1F",
         dark2: '#242424',
         dark3: '#100F13',
+        dark4: '#333235',
         primary: "#CAF244",
         gray: {
           50: '#FFFFFF0C',

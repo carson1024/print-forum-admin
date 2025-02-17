@@ -17,7 +17,7 @@ const Navbar = (props: {
   const { currentRoute } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <div className="card rounded space-y-6 w-[327px] px-4 py-8 flex flex-col">
+    <div className="card rounded space-y-6 min-w-[327px] px-4 py-8 flex flex-col">
       <div className='ml-5'>
         <img src={Logo} />
       </div>
