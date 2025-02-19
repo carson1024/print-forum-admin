@@ -51,7 +51,7 @@ export default function MainLayout(props: { [x: string]: any }) {
   };
 
   return (
-    <div className="h-screen p-6 m-auto max-w-[1440px]">
+    <div className="h-screen p-4 pt-6 sm:p-6 m-auto max-w-[1440px]">
       <div className="flex gap-4 relative w-full h-full overflow-hidden rounded">
         <Navbar
           currentRoute={currentRoute}
