@@ -24,7 +24,7 @@ const CallersTab = () => {
       <div className="flex-grow overflow-auto">
         <div className='flex flex-col gap-3'>
           {Array(6).fill(0).map((item, index) => (<Link to="" key={index}>
-            <div className="bg-gray-50 px-2.5 sm:px-4 py-1.5 rounded sm:rounded-full flex items-center w-full flex-wrap gap-2">
+            <div className="bg-gray-50 px-2.5 sm:px-4 py-1.5 rounded sm:rounded-[40px] flex items-center w-full flex-wrap gap-2">
               <div className="flex items-center gap-3">
                 <p className="font-semibold w-[25px]">#{index+1}</p>
                 <div className="p-1.5 rounded-full border border-gray-150 flex items-center gap-2.5">

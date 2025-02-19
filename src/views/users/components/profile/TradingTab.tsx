@@ -159,7 +159,7 @@ const TradingTab = () => {
           </div>
           <div className="flex flex-col gap-2">
             {
-              Array(2).fill(0).map((value, index) => <div className="bg-gray-50 rounded sm:rounded-full text-sm px-4 py-3 flex items-center gap-3 sm:gap-5 flex-wrap">
+              Array(2).fill(0).map((value, index) => <div className="bg-gray-50 rounded sm:rounded-[40px] text-sm px-4 py-3 flex items-center gap-3 sm:gap-5 flex-wrap">
                 <div className="min-w-[40px]">
                   {
                     index % 2 == 0 ?
