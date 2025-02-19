@@ -57,7 +57,7 @@ code {
   }
 
   .btn-md {
-    @apply px-4 py-1.5 font-semibold
+    @apply px-4 py-3 font-semibold
   }
 
   .btn-base {

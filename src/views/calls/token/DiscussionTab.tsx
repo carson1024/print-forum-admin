@@ -39,7 +39,7 @@ const DiscussionTab = () => {
                     <MdEdit className="mr-1" size={16} /> <span className='hidden sm:block'>Edit</span>
                   </button>
                 </div>
-                <p className='text-sm sm:text-base leading-snug'>
+                <p className='text-sm sm:text-base !leading-[135%]'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </p>
               </div>

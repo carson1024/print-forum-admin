@@ -11,7 +11,7 @@ const RestrictedModal = ({
       <div className="space-y-6">
         <div className="space-y-3">
           <h3 className="text-lg font-bold text-white">Page restriced</h3>
-          <p className="text-gray-600 leading-snug">
+          <p className="text-gray-600 !leading-[135%]">
             Alpha listing is accessible from rank <span className="text-red-300"><span className="text-md mr-1">IV</span>Rank Name</span><br/>
             and above.
           </p>
@@ -20,7 +20,7 @@ const RestrictedModal = ({
         <div className="space-y-5">
           <div className="space-y-1">
             <h3 className="text-lg font-bold text-white">Rank system</h3>
-            <p className="text-gray-600 leading-snug">
+            <p className="text-gray-600 !leading-[135%]">
               Understand print.forum rank system
             </p>
           </div>

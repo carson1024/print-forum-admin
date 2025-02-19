@@ -74,7 +74,7 @@ const GeneralTab = () => {
                   <MdEdit className="mr-1" size={16} /> Edit
                 </button>
               </div>
-              <div className='text-gray-600 text-xs leading-snug'>
+              <div className='text-gray-600 text-xs !leading-[135%]'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consectetur ligula. Mauris congue imperdiet ante non lobortis. In ante tellus, ultrices a consectetur a, euismod vel leo. Fusce dictum pellentesque orci ac malesuada.
               </div>
             </div>

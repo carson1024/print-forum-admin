@@ -40,7 +40,7 @@ const Calls = () => {
         </div>
         <div className="p-4 sm:p-6 flex flex-col gap-3 overflow-auto flex-grow">
           {forumData.map((item) => (<Link to="/admin/token/123" key={item.id}>
-            <div className="bg-gray-50 p-1.5 pr-3 rounded flex items-center gap-2.5 flex-wrap md:flex-nowrap">
+            <div className="bg-gray-50 p-1.5 pr-3 rounded sm:rounded-full flex items-center gap-2.5 flex-wrap md:flex-nowrap">
               <div className="flex flex-wrap grow">
                 <div className="flex grow gap-2 sm:gap-3 items-center">
                   <div className="grow space-y-1 sm:space-y-1.5 flex gap-2.5 items-center">

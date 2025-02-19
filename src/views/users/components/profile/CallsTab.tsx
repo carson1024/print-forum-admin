@@ -24,7 +24,7 @@ const CallsTab = () => {
       <div className="flex-grow overflow-auto">
         <div className='flex flex-col gap-3'>
         {forumData.map((item) => (<Link to="/token/123" key={item.id}>
-          <div className="bg-gray-50 p-2 sm:p-1.5 rounded flex items-center gap-2.5">
+          <div className="bg-gray-50 p-2 sm:p-1.5 rounded sm:rounded-full flex items-center gap-2.5">
             <div className="flex flex-wrap grow">
               <div className="flex grow gap-3 items-center">
                 <div className="flex gap-2.5 items-center flex-wrap">
