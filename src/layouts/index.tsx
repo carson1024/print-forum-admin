@@ -51,24 +51,26 @@ export default function MainLayout(props: { [x: string]: any }) {
   };
 
   return (
-    <div className="flex p-6 max-w-[1440px] m-auto gap-4 h-screen">
-      <Navbar
-        currentRoute={currentRoute}
-        secondary={getActiveNavbar(routes)}
-        {...rest}
-      />
-      {/* Main Content */}
-      <main
-        className="transition-all grow overflow-hidden"
-      >
-        {/* Routes */}
-        <div className="h-full">
-          <Routes>
-            {getRoutes(routes)}
-            <Route path="/" element={<Navigate to="/admin/dashboard" />} />
-          </Routes>
-        </div>
-      </main>
+    <div className="h-screen p-6 m-auto max-w-[1440px]">
+      <div className="flex gap-4 relative w-full h-full overflow-hidden rounded">
+        <Navbar
+          currentRoute={currentRoute}
+          secondary={getActiveNavbar(routes)}
+          {...rest}
+        />
+        {/* Main Content */}
+        <main
+          className="transition-all grow overflow-hidden"
+        >
+          {/* Routes */}
+          <div className="h-full">
+            <Routes>
+              {getRoutes(routes)}
+              <Route path="/" element={<Navigate to="/admin/dashboard" />} />
+            </Routes>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

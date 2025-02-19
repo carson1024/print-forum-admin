@@ -19,12 +19,12 @@ const EditDescriptionModal = ({
   }>) => {
   return <Modal isOpen={isOpen} onClose={onCancel} extraClass="w-[540px]">
     <div className="space-y-6">
-      <h1 className="text-lg font-bold text-white">UsernameLong’s description</h1>
+      <h1 className="text-md sm:text-lg font-bold text-white">UsernameLong’s description</h1>
       <div className="border border-gray-100"></div>
       <textarea
         placeholder="Write a short bio..."
         defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consectetur ligula. Mauris congue imperdiet ante non lobortis. In ante tellus, ultrices a consectetur a, euismod vel leo. Fusce dictum pellentesque orci ac malesuada."
-        className="bg-gray-50 rounded-[20px] flex-grow outline-none placeholder-gray-500 resize-none p-5 w-full text-gray-600"
+        className="bg-gray-50 rounded-[20px] flex-grow outline-none placeholder-gray-500 resize-none p-3 sm:p-5 w-full text-gray-600"
         rows={10}
       ></textarea>
       {/* Save Button */}

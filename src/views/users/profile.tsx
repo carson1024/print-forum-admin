@@ -15,6 +15,7 @@ import ProfileTab from "./components/profile/GeneralTab";
 import CallsTab from "./components/profile/CallsTab";
 import TradingTab from "./components/profile/TradingTab";
 import GeneralTab from "./components/profile/GeneralTab";
+import Header from "components/header";
 
 const ProfileDetail = () => {
   const navigate = useNavigate();
@@ -35,23 +36,29 @@ const ProfileDetail = () => {
 
   return <div className="flex gap-5 h-full">
     <div className="card flex-grow p-0 flex flex-col overflow-hidden">
-      <div className="px-6 py-6 border-b-[1px] border-gray-100 flex justify-between items-center">
-        <div className="flex gap-3 items-center">
-          <button onClick={() => navigate(-1)} className="bg-gray-100 text-gray-400 w-8 h-8 circle-item">
-            <FaChevronLeft />
-          </button>
-          <img src={User} className="w-8 h-8 circle"/>
+      <Header>
+        <div className="py-3 flex justify-between items-center">
           <div className="flex gap-3 items-center">
-            <span className="font-bold text-base">UsernameLong</span>
+            <button onClick={() => navigate(-1)} className="bg-gray-100 text-gray-400 w-8 h-8 circle-item">
+              <FaChevronLeft />
+            </button>
+            <img src={User} className="w-8 h-8 circle"/>
+            <div className="flex gap-3 items-center">
+              <span className="font-bold text-base">UsernameLong</span>
+            </div>
+          </div>
+          <div className="hidden md:flex btn-group light">
+            <button className={`btn btn-sm ${activeTab == 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>General Information</button>
+            <button className={`btn btn-sm ${activeTab == 'calls' ? 'active' : ''}`} onClick={() => setActiveTab('calls')}>Calls</button>
+            <button className={`btn btn-sm ${activeTab == 'trade' ? 'active' : ''}`} onClick={() => setActiveTab('trade')}>Trading</button>
           </div>
         </div>
-        <div className="btn-group light">
-          <button className={`btn btn-sm ${activeTab == 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>General Information</button>
-          <button className={`btn btn-sm ${activeTab == 'calls' ? 'active' : ''}`} onClick={() => setActiveTab('calls')}>Calls</button>
-          <button className={`btn btn-sm ${activeTab == 'trade' ? 'active' : ''}`} onClick={() => setActiveTab('trade')}>Trading</button>
-        </div>
+      </Header>
+      <div className="m-4 mb-2 sm:m-6 btn-group light sm:hidden justify-center">
+        <button className={`btn btn-sm ${activeTab == 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>General Information</button>
+        <button className={`btn btn-sm ${activeTab == 'calls' ? 'active' : ''}`} onClick={() => setActiveTab('calls')}>Calls</button>
+        <button className={`btn btn-sm ${activeTab == 'trade' ? 'active' : ''}`} onClick={() => setActiveTab('trade')}>Trading</button>
       </div>
-      
       <div className="flex-grow relative overflow-hidden">
         {
           activeTab == 'profile' ?

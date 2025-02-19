@@ -17,66 +17,73 @@ const GeneralTab = () => {
   const [isEditAchievementsModalOpen, setIsEditAchievementsModalOpen] = useState(false);
 
   return (<>
-    <div className="overflow-auto h-full p-6 text-white">
-      <div className='grid grid-cols-2 gap-5'>
+    <div className="overflow-auto h-full p-4 sm:p-6 text-white">
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>
         <div className='space-y-4'>
-          <div className="flex items-center gap-3">
-            <div className="bg-gray-50 rounded-full px-3 py-1.5 flex items-center gap-1">
-              <span className="text-xs text-gray-600">Followers</span>
-              <span className="text-xs text-primary">12</span>
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className='flex items-center gap-3'>
+              <div className="bg-gray-50 rounded-full px-3 py-1.5 flex items-center gap-1">
+                <span className="text-xs text-gray-600">Followers</span>
+                <span className="text-xs text-primary">12</span>
+              </div>
+              <div className="bg-gray-50 rounded-full px-3 py-1.5 flex items-center gap-1">
+                <span className="text-xs text-gray-600">Win rate</span>
+                <span className="text-xs text-green-600">56%</span>
+              </div>
             </div>
-            <div className="bg-gray-50 rounded-full px-3 py-1.5 flex items-center gap-1">
-              <span className="text-xs text-gray-600">Win rate</span>
-              <span className="text-xs text-green-600">56%</span>
-            </div>
-            <div className="bg-gray-50 rounded-full px-3 py-1.5 flex items-center gap-1">
-              <span className="text-xs text-gray-600">Calls</span>
-              <span className="text-xs text-white">125</span>
-            </div>
-            <div className="bg-gray-50 rounded-full px-3 py-1.5 flex items-center gap-1">
-              <span className="text-xs text-gray-600">Account age</span>
-              <span className="text-xs text-white">2 years</span>
+            <div className='flex items-center gap-3'>
+              <div className="bg-gray-50 rounded-full px-3 py-1.5 flex items-center gap-1">
+                <span className="text-xs text-gray-600">Calls</span>
+                <span className="text-xs text-white">125</span>
+              </div>
+              <div className="bg-gray-50 rounded-full px-3 py-1.5 flex items-center gap-1">
+                <span className="text-xs text-gray-600">Account age</span>
+                <span className="text-xs text-white">2 years</span>
+              </div>
             </div>
           </div>
-          <div className='rounded-[20px] p-6 flex items-center justify-between bg-gray-50'>
-            <div className="space-y-2">
-              <div className="text-md font-semibold"><span className="text-xl font-bold">2.1</span> SOL</div>
-              <p className="text-sm text-white/60">Current Balance</p>
-            </div>
-            <div className='flex gap-5'>
-              <div className="space-y-0.5">
-                <p className="text-white/60 text-sm">Copying</p>
-                <div className="text-white font-semibold flex gap-2">
-                  <span>0.2 SOL</span>
-                  <div className="bg-green-600 px-1 py-0.5 text-xs flex items-center rounded-full text-white">
-                    <span className="text-sm"><AiFillCaretUp /></span>
-                    <span>12%</span>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4'>
+            <div className='rounded-[20px] p-6 flex items-center justify-between bg-gray-50 flex-wrap gap-4'>
+              <div className="space-y-2">
+                <div className="text-md font-semibold"><span className="text-xl font-bold">2.1</span> SOL</div>
+                <p className="text-sm text-white/60">Current Balance</p>
+              </div>
+              <div className='flex gap-5'>
+                <div className="space-y-0.5">
+                  <p className="text-white/60 text-sm">Copying</p>
+                  <div className="text-white font-semibold flex gap-2">
+                    <span>0.2 SOL</span>
+                    <div className="bg-green-600 px-1 py-0.5 text-xs flex items-center rounded-full text-white">
+                      <span className="text-sm"><AiFillCaretUp /></span>
+                      <span>12%</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-0.5">
+                  <p className="text-white/60 text-sm">Unallocated</p>
+                  <div className="text-white font-semibold flex gap-2">
+                    <span>2 SOL</span>
                   </div>
                 </div>
               </div>
-              <div className="space-y-0.5">
-                <p className="text-white/60 text-sm">Unallocated</p>
-                <div className="text-white font-semibold flex gap-2">
-                  <span>2 SOL</span>
-                </div>
+            </div>
+            <div className='rounded-[20px] p-6 space-y-4 bg-gray-50'>
+              <div className='flex justify-between'>
+                <div className='text-md font-semibold'>Description</div>
+                <button className="btn btn-edit" onClick={() => setIsEditDescriptionModalOpen(true)}>
+                  <MdEdit className="mr-1" size={16} /> Edit
+                </button>
+              </div>
+              <div className='text-gray-600 text-xs leading-snug'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consectetur ligula. Mauris congue imperdiet ante non lobortis. In ante tellus, ultrices a consectetur a, euismod vel leo. Fusce dictum pellentesque orci ac malesuada.
               </div>
             </div>
-          </div>
-          <div className='rounded-[20px] p-6 space-y-4 bg-gray-50'>
-            <div className='flex justify-between'>
-              <div className='text-md font-semibold'>Description</div>
-              <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditDescriptionModalOpen(true)}>
-                <MdEdit className="mr-1" size={16} /> Edit
-              </button>
-            </div>
-            <div className='text-gray-600 text-xs leading-snug'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consectetur ligula. Mauris congue imperdiet ante non lobortis. In ante tellus, ultrices a consectetur a, euismod vel leo. Fusce dictum pellentesque orci ac malesuada.
-            </div>
+          
           </div>
           <div className='rounded-[20px] p-6 space-y-6 bg-gray-50'>
             <div className='flex justify-between'>
               <div className='text-md font-semibold'>Links</div>
-              <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditLinkModalOpen(true)}>
+              <button className="btn btn-edit" onClick={() => setIsEditLinkModalOpen(true)}>
                 <MdEdit className="mr-1" size={16} /> Edit
               </button>
             </div>
@@ -116,11 +123,11 @@ const GeneralTab = () => {
             </div>
           </div>
         </div>
-        <div className='space-y-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4'>
           <div className="p-6 rounded-[20px] bg-gray-50 space-y-4">
             <div className='flex justify-between'>
               <div className='text-md font-semibold'>Rank progression</div>
-              <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditRankModalOpen(true)}>
+              <button className="btn btn-edit" onClick={() => setIsEditRankModalOpen(true)}>
                 <MdEdit className="mr-1" size={16} /> Edit
               </button>
             </div>
@@ -147,7 +154,7 @@ const GeneralTab = () => {
           <div className="rounded-[20px] bg-gray-50 text-white p-6 space-y-4">
             <div className='flex justify-between'>
               <div className='text-md font-semibold'>Achievements</div>
-              <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditAchievementsModalOpen(true)}>
+              <button className="btn btn-edit" onClick={() => setIsEditAchievementsModalOpen(true)}>
                 <MdEdit className="mr-1" size={16} /> Edit
               </button>
             </div>

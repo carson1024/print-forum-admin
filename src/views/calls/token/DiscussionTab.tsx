@@ -17,13 +17,13 @@ const DiscussionTab = () => {
   const [isEditDiscussionModalOpen, setEditDiscussionModalOpen] = useState(false);
 
   return (<>
-    <div className="p-6 h-full flex flex-col space-y-3 overflow-hidden">
+    <div className="p-4 sm:p-6 h-full flex flex-col space-y-3 overflow-hidden">
       <div className="flex-grow overflow-auto">
         <div className='flex flex-col'>
           {
-            Array(10).fill(0).map(() => <div className="flex gap-4 border-b-[1px] border-gray-100 py-3">
+            Array(10).fill(0).map(() => <div className="flex gap-3 sm:gap-4 border-b-[1px] border-gray-100 py-3">
               <div>
-                <div className="w-[50px] h-[50px] bg-black circle-item">
+                <div className="w-9 h-9 sm:w-[50px] sm:h-[50px] bg-black circle-item">
                   <img src={IconUser} className="w-2.5 h-2.5" />
                 </div>
               </div>
@@ -35,11 +35,11 @@ const DiscussionTab = () => {
                     <span className="text-xs text-gray-600">55%</span>
                     <span className="text-sm text-gray-600">3m</span>
                   </div>
-                  <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setEditDiscussionModalOpen(true)}>
-                    <MdEdit className="mr-1" size={16} /> Edit
+                  <button className="btn btn-edit" onClick={() => setEditDiscussionModalOpen(true)}>
+                    <MdEdit className="mr-1" size={16} /> <span className='hidden sm:block'>Edit</span>
                   </button>
                 </div>
-                <p>
+                <p className='text-sm sm:text-base leading-snug'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </p>
               </div>

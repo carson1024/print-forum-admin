@@ -6,6 +6,7 @@ import { getMultiplierType, getRankChar } from "utils/style";
 import IconUser from 'assets/img/icons/user.svg';
 import { MdEdit } from "react-icons/md";
 import { IoSearchSharp } from "react-icons/io5";
+import Header from "components/header";
 
 const Users = () => {
   const [activeTab, setActiveTab] = useState<'featured' | 'latest'>('featured');
@@ -24,23 +25,30 @@ const Users = () => {
   return (<>
     <div className="flex gap-5 h-full">
       <div className="card flex-grow p-0 flex flex-col overflow-hidden">
-        <div className="px-6 py-6 border-b-[1px] border-gray-100 flex justify-between items-center">
-          <div className="bg-gray-50 px-3 py-1 rounded-full text-white flex items-center gap-2">
-            <IoSearchSharp size={24} className="text-gray-600"/>
-            <input 
-              type="text" 
-              className="bg-transparent outline-none text-white flex-grow text-sm max-w-[140px]"
-              placeholder="Search user"
-            />
+        <Header>
+          <div className="py-3 flex justify-between items-center">
+            <div className="bg-gray-50 px-3 py-1 rounded-full text-white flex items-center gap-2">
+              <IoSearchSharp size={24} className="text-gray-600"/>
+              <input 
+                type="text" 
+                className="bg-transparent outline-none text-white flex-grow text-sm max-w-[140px]"
+                placeholder="Search user"
+              />
+            </div>
+            <div className='btn-group lighter hidden sm:flex'>
+              <button className="btn btn-sm active">All</button>
+              <button className="btn btn-sm">Traders</button>
+              <button className="btn btn-sm">Non Traders</button>
+            </div>
           </div>
-          <div className='btn-group lighter'>
+        </Header>
+        
+        <div className="p-4 sm:p-6 flex flex-col gap-3 overflow-auto flex-grow">
+          <div className='btn-group lighter sm:hidden'>
             <button className="btn btn-sm active">All</button>
             <button className="btn btn-sm">Traders</button>
             <button className="btn btn-sm">Non Traders</button>
           </div>
-        </div>
-        
-        <div className="p-6 flex flex-col gap-3 overflow-auto flex-grow">
           {Array(5).fill(0).map((item, index) => (<Link to="/admin/profile/123" key={index}>
             <div className="bg-gray-50 p-3 rounded-full flex items-center justify-between">
               <div className="flex items-center gap-2.5">

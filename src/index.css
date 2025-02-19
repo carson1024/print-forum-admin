@@ -30,7 +30,7 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply bg-dark text-white;
+  @apply bg-dark3 text-white;
 }
 
 code {
@@ -46,7 +46,7 @@ code {
     @apply bg-primary text-black px-6 py-5 rounded-full font-semibold duration-300 ease-in-out hover:bg-primary/80 flex items-center justify-center;
   }
   .nav-item {
-    @apply text-white px-6 py-5 rounded font-semibold duration-300 ease-in-out hover:bg-white/5 flex items-center;
+    @apply text-white px-5 py-4 rounded font-semibold duration-300 ease-in-out hover:bg-white/5 flex items-center;
   }
   .nav-item.active {
     @apply bg-primary text-black hover:bg-primary/80
@@ -60,6 +60,10 @@ code {
     @apply px-4 py-1.5 font-semibold
   }
 
+  .btn-base {
+    @apply px-3 py-3 text-xs sm:text-sm gap-0.5
+  }
+
   .btn-sm {
     @apply px-3 py-2.5 text-xs font-bold
   }
@@ -67,6 +71,9 @@ code {
     @apply px-1.5 py-1 text-xs font-bold
   }
 
+  .btn-edit {
+    @apply !bg-transparent !border !border-gray-50 !text-gray-600 hover:!border-gray-200 px-3 py-1.5 text-xs sm:text-sm;
+  }
   .btn-primary {
     @apply bg-primary hover:bg-primary/80;
   }
@@ -176,4 +183,7 @@ code {
 }
 select {
   @apply px-2.5 py-1.5 rounded-full bg-gray-100 text-white outline-none;
+}
+input {
+  min-width: 0px;
 }

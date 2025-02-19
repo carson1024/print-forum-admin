@@ -7,15 +7,15 @@ const AllTradesModal = ({
   isOpen: boolean,
   onClose: () => void
 }>) => {
-  return <Modal isOpen={isOpen} onClose={onClose} extraClass="!max-w-none w-[80%]">
-    <div className="space-y-6">
+  return <Modal isOpen={isOpen} onClose={onClose} extraClass="!max-w-none w-[90%] sm:w-[80%] max-h-[90%] overflow-hidden flex">
+    <div className="flex flex-col gap-4 sm:gap-6 grow">
       <h3 className="text-lg font-bold">My Trades</h3>
       <div className="border border-gray-100"></div>
       <div className="btn-group light">
         <button className="btn active">Active</button>
         <button className="btn">Past</button>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-3 flex-grow overflow-auto">
         {
           Array(9).fill(0).map((value, index) => <div className="bg-gray-50 rounded-full text-sm px-4 py-3 flex items-center gap-5">
             <div className="w-[5%]">

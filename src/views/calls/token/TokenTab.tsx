@@ -14,8 +14,8 @@ const TokenTab = () => {
   const [isEditLinkModalOpen, setIsEditLinkModalOpen] = useState(false);
 
   return (<>
-    <div className="overflow-auto h-full p-6 text-white">
-      <div className='grid grid-cols-2 gap-5'>
+    <div className="overflow-auto h-full p-4 sm:p-6 text-white">
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
         <div className='rounded-[22px] bg-gray-50 p-6 space-y-4'>
           <div className='text-md font-semibold'>General information</div>
           <div className="flex gap-3 flex-wrap">
@@ -37,7 +37,7 @@ const TokenTab = () => {
           </div>
           <div className="flex gap-2 flex-wrap">
             <span>Top 3 holders</span>
-            <div className="flex gap-2"> 
+            <div className="flex gap-0.5 sm:gap-2"> 
               {Array(3).fill(0).map((holder, index) => (
                 <span key={index} className="bg-gray-100 px-2 py-1.5 rounded-full text-white text-xs">3.3% ($1.3m)</span>
               ))}
@@ -52,7 +52,7 @@ const TokenTab = () => {
         <div className='rounded-[22px] p-6 space-y-6 bg-gray-50'>
           <div className='flex justify-between'>
             <div className='text-md font-semibold'>Links</div>
-            <button className="btn px-3 py-1.5 text-sm btn-outline" onClick={() => setIsEditLinkModalOpen(true)}>
+            <button className="btn btn-edit" onClick={() => setIsEditLinkModalOpen(true)}>
               <MdEdit className="mr-1" size={16} /> Edit
             </button>
           </div>

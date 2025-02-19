@@ -8,46 +8,46 @@ import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   return <div className="flex items-center h-screen">
-    <div className={`bg-dark1 text-white rounded shadow-lg p-[50px] relative w-[540px] space-y-7 m-auto`}>
+    <div className={`bg-dark1 text-white rounded shadow-lg p-8 sm:p-[50px] relative w-[92%] sm:w-[540px] space-y-4 sm:space-y-6 m-auto`}>
       {/* Modal Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold mb-3">Log in</h2>
-        <img src={Logo} />
+        <h2 className="text-base sm:text-lg font-bold">Log in</h2>
+        <img src={Logo} className="h-9" />
       </div>
       {/* Divider */}
       <div className="border-t border-gray-700"></div>
       
       <div className="space-y-2">
         {/* Email Login */}
-        <p className="font-semibold">Email</p>
+        <p className="text-sm sm:text-base font-semibold">Email</p>
         <div className="input-field w-full">
-          <MdEmail className="text-gray-600 ml-1" size={24} />
+          <MdEmail className="text-gray-600 ml-1 text-base sm:text-lg" />
           <input 
             type="email" 
             placeholder="example@email.com" 
-            className="bg-transparent flex-grow outline-none text-white placeholder-gray-500"
+            className="bg-transparent flex-grow outline-none text-white placeholder-gray-500 text-sm sm:text-base"
           />
         </div>
       </div>
 
       <div className="space-y-2">
         {/* Password */}
-        <p className="font-semibold mb-2">Password</p>
+        <p className="font-semibold mb-2 text-sm sm:text-base">Password</p>
         <div className="input-field w-full">
-          <MdLock className="text-gray-600 ml-1" size={24} />
+          <MdLock className="text-gray-600 ml-1 text-base sm:text-lg" />
           <input 
-            type="email" 
-            placeholder="example@email.com" 
-            className="bg-transparent flex-grow outline-none text-white placeholder-gray-500"
+            type="password" 
+            placeholder="" 
+            className="bg-transparent flex-grow outline-none text-white placeholder-gray-500 text-sm sm:text-base"
           />
           <button>
-            <IoEyeOutline className="text-gray-600 ml-1" size={24} />
+            <IoEyeOutline className="text-gray-600 ml-1 text-base sm:text-lg" />
           </button>
         </div>
       </div>
 
       {/* Log in */}
-      <Link to="/admin" className="w-full btn py-3">
+      <Link to="/admin" className="w-full btn btn-base sm:btn-lg sm:text-base py-3">
         Log in
       </Link>
     </div>

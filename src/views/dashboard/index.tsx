@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getMultiplierType, getRankChar } from "utils/style";
 import IconUser from 'assets/img/icons/user.svg';
 import { MdEdit } from "react-icons/md";
+import Header from "components/header";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<'featured' | 'latest'>('featured');
@@ -23,16 +24,18 @@ const Dashboard = () => {
   return (<>
     <div className="flex gap-5 h-full">
       <div className="card flex-grow p-0 flex flex-col overflow-hidden">
-        <div className="px-6 py-6 border-b-[1px] border-gray-100 flex justify-between items-center">
-          <div className='ml-auto px-3 py-2 rounded-full bg-gray-100 text-white flex items-center gap-2'>
-            <span className='text-base font-semibold'>7 days</span>
-            <span className='text-sm text-gray-500'><AiFillCaretDown /></span>
+        <Header>
+          <div className="py-3 flex justify-between items-center">
+            <div className='ml-auto px-3 py-2 rounded-full bg-gray-100 text-white flex items-center gap-2'>
+              <span className='text-sm sm:text-base font-semibold'>7 days</span>
+              <span className='text-sm text-gray-500'><AiFillCaretDown /></span>
+            </div>
           </div>
-        </div>
+        </Header>
         
-        <div className="p-6 flex flex-col gap-5 overflow-auto flex-grow">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="flex items-center rounded p-8 bg-gray-50">
+        <div className="p-4 sm:p-6 flex flex-col gap-5 overflow-auto flex-grow">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="flex items-center rounded px-6 py-6 lg:px-8 lg:py-8 bg-gray-50">
               <div className="py-4 space-y-1">
                 <div className="text-2xl font-bold">14.7k</div>
                 <div className="text-sm text-gray-600">Users total<span className="ml-1 text-green-600">+786</span></div>
@@ -56,22 +59,24 @@ const Dashboard = () => {
             <div>
               {Array(5).fill(0).map((item, index) => (<Link to="" key={index}>
                 <div className="flex gap-4 py-4 border-b-[1px]">
-                  <div className="relative w-[50px] h-[50px] bg-black circle flex items-center justify-center">
-                    <img src={IconUser} className="w-4 h-4" />
+                  <div className="relative w-8 h-8 sm:w-[50px] sm:h-[50px] bg-black circle hidden sm:flex items-center justify-center">
+                    <img src={IconUser} className="w-2 h-2 sm:w-4 sm:h-4" />
                   </div>
                   <div className="space-y-2 grow">
-                    <div className="flex gap-1 items-center">
-                      <div className="circle-item w-7 h-7 bg-red-300 text-black text-sm font-bold">V</div>
-                      <span className="font-bold text-gray-600">UsernameLong</span>
-                      <span className="text-xs text-gray-600">55%</span>
-                      <div className="text-sm text-gray-600">1 min ago</div>
+                    <div className="flex gap-2 items-center">
+                      <div className="circle-item min-w-7 w-7 h-7 bg-red-300 text-black text-sm font-bold">V</div>
+                      <div className="flex gap-x-2 items-center flex-wrap">
+                        <span className="font-bold text-gray-600">UsernameLong</span>
+                        <span className="text-xs text-gray-600">55%</span>
+                        <div className="text-sm text-gray-600">1 min ago</div>
+                      </div>
+                      <div className="ml-auto">
+                        <button className="btn btn-edit">
+                          <MdEdit className="" size={16} /> <span className="hidden sm:block ml-1">Edit</span>
+                        </button>
+                      </div>
                     </div>
                     <div className="text-sm">Lorem ipsum dolor sit amet, consectetur.</div>
-                  </div>
-                  <div className="">
-                    <button className="btn px-3 py-1.5 text-sm btn-outline">
-                      <MdEdit className="mr-1" size={16} /> Edit
-                    </button>
                   </div>
                 </div>
               </Link>
