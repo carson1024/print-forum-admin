@@ -9,6 +9,7 @@ export default function MainLayout(props: { [x: string]: any }) {
   const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
 
   React.useEffect(() => {
+    
     getActiveRoute(routes);
   }, [location.pathname]);
 

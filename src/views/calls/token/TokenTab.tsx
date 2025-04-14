@@ -9,9 +9,45 @@ import EditLinkModal from 'components/modal/profile/EditLinkModal';
 import EditRankModal from 'components/modal/profile/EditRankModal';
 import EditAchievementsModal from 'components/modal/profile/EditAchievementsModal';
 import AchievementsModal from 'components/modal/profile/AchievementsModal';
-
-const TokenTab = () => {
+import { checkCall, formatNumber, formatShortAddress, formatTimestamp } from "../../../utils/style";
+import { supabase } from "lib/supabase";
+const TokenTab = ({
+  callers,
+  top10HolderInfo,
+  top3Holders,
+  token,
+  ratioVote,
+  profile
+}: {
+  ratioVote:any,
+  callers: any,
+  top3Holders:any,
+  top10HolderInfo:any,
+  token: any,
+  profile:any
+}) => {
   const [isEditLinkModalOpen, setIsEditLinkModalOpen] = useState(false);
+  const savelink = async (id: string, xaddress: string, taddress: string, saddress: string) => {
+  const updates: { [key: string]: string } = {};
+  
+    if (xaddress !== '') { updates.xaddress = xaddress; profile.xaddress = xaddress;   (document.getElementById("x") as HTMLInputElement).value = xaddress;}
+  if (taddress !== '') { updates.taddress = taddress; profile.taddress = taddress;  (document.getElementById("t") as HTMLInputElement).value = taddress; }
+  if (saddress !== '') { updates.saddress = saddress; profile.saddress = saddress;   (document.getElementById("s") as HTMLInputElement).value = saddress;}
+
+  if (Object.keys(updates).length === 0) return; // Nothing to update
+
+  const { error: updateError } = await supabase
+    .from("users")
+    .update(updates)
+    .eq("id", id);
+
+  if (updateError) {
+    console.error("Update failed:", updateError);
+  } else {
+    // Object.assign(myprofile, updates); // Update local profile
+    }
+  };
+
 
   return (<>
     <div className="overflow-auto h-full p-4 sm:p-6 text-white">
@@ -20,33 +56,33 @@ const TokenTab = () => {
           <div className='text-md font-semibold'>General information</div>
           <div className="flex gap-3 flex-wrap">
             <div className="bg-gray-100 px-2 py-1.5 rounded-full flex text-xs gap-1">
-              Marketcap 475.5k to 880.4k
+              Marketcap {formatNumber(token.init_market_cap)} to {formatNumber(token.changedCap)}
             </div>
             <div className="bg-green-600 px-2 py-1.5 text-xs flex gap-0.5 items-center rounded-full text-black">
               <AiFillCaretUp />
-              <span>519%</span>
+              <span>{token.percentage}%</span>
             </div>
           </div>
           <div className="flex gap-2">
             <span>Callers</span> 
-            <span className="bg-gray-100 px-2 py-1.5 rounded-full text-white text-xs">72</span>
+            <span className="bg-gray-100 px-2 py-1.5 rounded-full text-white text-xs">{callers}</span>
           </div>
           <div className="flex gap-2">
             <span>Top 10 holders</span> 
-            <span className="bg-gray-100 px-2 py-1.5 rounded-full text-white text-xs">22.4% ($20m)</span>
+            <span className="bg-gray-100 px-2 py-1.5 rounded-full text-white text-xs">{top10HolderInfo.pct.toFixed(2)}% (${formatNumber(top10HolderInfo.uiAmount*token.changedPrice)})</span>
           </div>
           <div className="flex gap-2 flex-wrap">
             <span>Top 3 holders</span>
             <div className="flex gap-0.5 sm:gap-2"> 
-              {Array(3).fill(0).map((holder, index) => (
-                <span key={index} className="bg-gray-100 px-2 py-1.5 rounded-full text-white text-xs">3.3% ($1.3m)</span>
+              {top3Holders.map((holder: { pct: number; uiAmount: number }) => (
+                <span className="bg-gray-100 px-2 py-1.5 rounded-full text-white text-xs">{holder.pct.toFixed(2)}% (${formatNumber(holder.uiAmount*token.changedPrice)})</span>
               ))}
             </div>
           </div>
           <div className="flex gap-1 items-center">
             <div className="circle-item w-6 h-6 bg-gray-100 text-green-600 text-sm pb-[2px]"><AiFillCaretUp /></div>
             <div className="circle-item w-6 h-6 bg-gray-100 text-red-400 text-sm pt-[2px]"><AiFillCaretDown /></div>
-            <span className="text-xs text-gray-600">55%</span>
+            <span className="text-xs text-gray-600">{ratioVote}%</span>
           </div>
         </div>
         <div className='rounded-[22px] p-6 space-y-6 bg-gray-50'>
@@ -62,8 +98,10 @@ const TokenTab = () => {
               <div className="flex items-center bg-gray-50 rounded-full px-4 py-2.5 gap-2">
                 <img src={IconTwitter} className="w-5 h-5" />
                 <input
+                  id="x"
                   type="text"
                   placeholder="example@email.com"
+                  defaultValue={profile.xaddress}
                   className="bg-transparent flex-grow outline-none text-white placeholder-gray-500 text-sm"
                   disabled
                 />
@@ -72,8 +110,10 @@ const TokenTab = () => {
               <div className="flex items-center bg-gray-50 rounded-full px-4 py-2.5 gap-2">
                 <img src={IconTelegram} className="w-[28px] h-[28px]" />
                 <input
+                  id="t"
                   type="text"
                   placeholder="t.com/username"
+                  defaultValue={profile.taddress}
                   className="bg-transparent flex-grow outline-none text-white placeholder-gray-500 text-sm"
                   disabled
                 />
@@ -82,8 +122,10 @@ const TokenTab = () => {
               <div className="flex items-center bg-gray-50 rounded-full px-4 py-2.5 gap-2">
                 <img src={IconSolana} className="w-6 h-6" />
                 <input
+                  id="s"
                   type="text"
                   placeholder="address"
+                  defaultValue={profile.saddress}
                   className="bg-transparent flex-grow outline-none text-white placeholder-gray-500 text-sm"
                   disabled
                 />
@@ -93,7 +135,9 @@ const TokenTab = () => {
         </div>
       </div>
     </div>
-    <EditLinkModal isOpen={isEditLinkModalOpen} onOk={() => setIsEditLinkModalOpen(false)} onCancel={() => setIsEditLinkModalOpen(false)} />
+       <EditLinkModal onChange={(id, xaddress,taddress,saddress)=>savelink(id, xaddress,taddress,saddress) } profile={profile } isOpen={isEditLinkModalOpen} onOk={() => setIsEditLinkModalOpen(false)} onCancel={() => setIsEditLinkModalOpen(false)} />
+
+    {/* <EditLinkModal onChange={(id, xaddress,taddress,saddress)=>savelink(id, xaddress,taddress,saddress) } profile={myprofile } isOpen={isEditLinkModalOpen} onOk={() => setIsEditLinkModalOpen(false)} onCancel={() => setIsEditLinkModalOpen(false)} /> */}
   </>);
 }
 

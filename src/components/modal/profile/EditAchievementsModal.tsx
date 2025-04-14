@@ -45,6 +45,7 @@ const EditAchievementsModal = ({
     }else {
       setSelectedAchievements(prevArray => [...prevArray, key]);
     }
+    console.log(selectedAchievements);
     
   }
 

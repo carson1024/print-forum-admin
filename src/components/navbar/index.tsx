@@ -10,7 +10,10 @@ import { HiMiniArrowsUpDown } from "react-icons/hi2";
 import { GrAnnounce } from "react-icons/gr";
 import { FaTimes, FaUser } from 'react-icons/fa';
 import { useSidebar } from './provider';
-
+const handleLogout = () => { 
+  window.location.href = "/login";
+  sessionStorage.setItem("accessToken", "0");
+}
 const Navbar = (props: {
   currentRoute: string;
   secondary?: boolean | string;
@@ -30,7 +33,7 @@ const Navbar = (props: {
         <Link to="/admin/calls" className={`nav-item ${currentRoute == 'calls' ? 'active' : ''}`} onClick={toggleSidebar}><HiMiniArrowsUpDown className="mr-2" size={24} /> Calls</Link>
         <Link to="/admin/announcements" className={`nav-item ${currentRoute == 'announcements' ? 'active' : ''}`} onClick={toggleSidebar}><GrAnnounce className="mr-2" size={24} /> Announcements</Link>
       </div>
-      <Link to={"/login"} className='ml-5 text-gray-600'>Log out</Link>
+      <button className='ml-5 text-gray-600' onClick={handleLogout}>Log out</button>
     </nav>
   )
 }

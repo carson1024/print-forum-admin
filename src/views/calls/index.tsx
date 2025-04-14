@@ -1,21 +1,108 @@
-import React, { useState } from "react";
+
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Token from 'assets/img/sample/token.png';
 import IconCopy from 'assets/img/icons/copy.svg';
 import Header from "components/header";
+import React, { useState, useEffect } from 'react';
+import {useSearchParams } from 'react-router-dom';
+import { supabase } from "lib/supabase";
+import { SkeletonList } from "../../utils/skeleton";
+import { CallRow } from "../../../src/views/users/components/profile/CallRow";
+// import { checkPrice } from "components/cron/netlify";
+
+const options = ["All Ranks", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10"];
+
+function useOutsideAlerter(ref: any, setX: any): void {
+  React.useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setX(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+    // Unbind the event listener on clean up
+    document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, setX]);
+}
+
 
 const Calls = () => {
-  const [activeTab, setActiveTab] = useState<'featured' | 'latest'>('featured');
-  const [filter, setFilter] = useState("All Ranks");
-  const forumData = [
-    { id: 1, name: "$PEPESI", multiplier: "10X", rank: "1", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 2, name: "$PEPESI", multiplier: "100X", rank: "2", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 3, name: "$PEPESI", multiplier: "20X", rank: "3", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 4, name: "$PEPESI", multiplier: "10X", rank: "4", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 5, name: "$PEPESI", multiplier: "100X", rank: "6", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-  ];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState<"featured" | "latest">(searchParams.get('type') as "featured" | "latest" || 'latest');
+  const [isLoading, setIsLoading] = useState(true);
+  const [callList, setCallList] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [filters, setFilters] = useState(searchParams.get('level') || "All Ranks");
+  const wrapperRef = React.useRef(null);
+ 
+  useOutsideAlerter(wrapperRef, setIsOpen);
+  useEffect(() => {
+
+   setIsLoading(true);
+   const fetchCalls = async () => {
+   const { data, error } = await supabase
+        .from("calls")
+        .select("*, users(*)")
+        .order("updated_at", { ascending: false })
+     if (error) {
+        console.error("Error fetching calls:", error.message);
+        return;
+     }
+     if (activeTab==null || activeTab == "latest") {
+       if (filters == "All Ranks" || filters == null) {
+         setCallList(data.filter(call => call.is_featured === false));
+         }
+       else {
+         setCallList((data.filter(call => call.is_featured === false)).filter(call => call.users.rank === parseInt(filters.slice(6, 8), 10)));
+       }
+     }
+     else if (activeTab == "featured") {
+       if (filters == "All Ranks" || filters ==null) {
+         setCallList(data.filter(call => call.is_featured === true));
+       }
+       else {
+         setCallList((data.filter(call => call.is_featured === true)).filter(call => call.users.rank === parseInt(filters.slice(6, 8), 10)));
+       }
+     }
+       setIsLoading(false);
+    }
+    fetchCalls();   
+   const interval = setInterval(() => {
+    fetchCalls();   
+    // checkPrice();
+    }, 20000);
+    
+   const channel  = supabase
+      .channel("my_calls")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "calls" }, fetchCalls)
+      .subscribe();
+     return () => {
+      supabase.removeChannel(channel );
+      clearInterval(interval);
+    };
+  }, [filters,activeTab]);
+
+  const featuredlist = () => {
+    setActiveTab("featured");
+    setSearchParams({ type: "featured", level: filters });
+  }
+  
+  const lastestlist = () => {
+    setActiveTab("latest");
+    setSearchParams({ type: "latest",level: filters });
+  }
+  
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const handleSelect = (op: string): void =>{
+    setFilters(op);
+    setSearchParams({ type:activeTab, level: op });
+    setIsOpen(false);
+  };
 
   return (<>
     <div className="flex gap-5 h-full">
@@ -23,73 +110,41 @@ const Calls = () => {
         <Header>
           <div className="py-3 flex justify-between items-center">
             <div className='btn-group lighter'>
-              <button className="btn btn-sm active">Featured</button>
-              <button className="btn btn-sm">Latest</button>
+              <button className={`btn btn-sm ${activeTab == 'featured' ? 'active' : ''}`} onClick={() => featuredlist()}>Featured</button>
+              <button className={`btn btn-sm ${activeTab == 'latest' ? 'active' : ''}`} onClick={() => lastestlist()} >Latest</button>
             </div>
-            <div className='ml-auto px-3 py-2 rounded-full bg-gray-100 text-white hidden sm:flex items-center gap-2'>
-              <span className='text-base text-gray-500 font-semibold'>All Ranks</span>
-              <span className='text-base font-semibold'>All Ranks</span>
-              <span className='text-sm text-gray-500'><AiFillCaretDown /></span>
-            </div>
+            <div ref={wrapperRef} className="relative inline-block text-left">
+        <button
+        className="flex rounded-full items-center bg-primary/20 text-primary px-3 py-2 hover:bg-primary/30 text-xs md:text-base"
+        onClick={toggleDropdown}>
+        <span className="text-primary/30 mr-2">Show</span> <span>{filters}</span>
+        <AiFillCaretDown className="text-primary/30 ml-1" /></button>
+        {isOpen && (
+          <div className="absolute left-1/2 transform -translate-x-1/2 mt-1 w-36 text-white overflow-hidden rounded-sm pb-2 z-10 text-sm bg-neutral-800 shadow-lg">
+          {options.map((op) => (
+            <button
+              key={op}
+              className={`block w-full px-4 py-2.5 text-left hover:text-black hover:bg-primary/50 ${filters == op ? 'bg-primary/50 text-black' : ''}`}
+              onClick={() => handleSelect(op)}>
+              {op}
+            </button>
+              ))}
+          </div>
+        )}
+        </div>
           </div>
         </Header>
         <div className='m-4 mb-2 sm:m-6 px-3 py-2 rounded-full bg-gray-100 text-white flex sm:hidden items-center gap-2 ml-auto'>
-          <span className='text-sm sm:text-base text-gray-500 font-semibold'>All Ranks</span>
-          <span className='text-sm sm:text-base font-semibold'>All Ranks</span>
+          <span className='text-sm sm:text-base text-gray-500 font-semibold'>Shows</span>
+          <span className='text-sm sm:text-base font-semibold'>Shows</span>
           <span className='text-sm text-gray-500'><AiFillCaretDown /></span>
         </div>
-        <div className="p-4 sm:p-6 flex flex-col gap-3 overflow-auto flex-grow">
-          {forumData.map((item) => (<Link to="/admin/token/123" key={item.id}>
-            <div className="bg-gray-50 p-1.5 pr-3 rounded sm:rounded-[40px] flex items-center gap-2.5 flex-wrap md:flex-nowrap">
-              <div className="flex flex-wrap grow">
-                <div className="flex grow gap-2 sm:gap-3 items-center">
-                  <div className="grow space-y-1 sm:space-y-1.5 flex gap-2.5 items-center">
-                    <img src={Token} className="w-[44px] h-[44px] md:w-[59px] md:h-[59px] circle"/>
-                    <div className="flex flex-wrap gap-1">
-                      <div className="flex gap-1.5 sm:gap-2.5 items-center">
-                        <span className="font-bold">{item.name}</span>
-                        <span className={`badge-multiplier-${item.multiplier}`}></span>
-                        <div className="bg-gray-100 px-1.5 py-1 sm:px-2 sm:py-1.5 rounded-full flex text-xs gap-1 items-center">
-                          <span>CA</span>
-                          <span className="truncate text-gray-400">Gmx…AyW</span>
-                          <button className="text-gray-400"><img src={IconCopy} className="opacity-40"/></button>
-                        </div>
-                        <span className="text-sm text-gray-600">3m</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 sm:gap-2.5">
-                        <div className="bg-gray-100 px-1.5 py-1 sm:px-2 sm:py-1.5 rounded-full flex text-xs gap-1">
-                          Marketcap {item.marketcap}
-                        </div>
-                        <div className="bg-green-600 px-1.5 py-1 sm:px-2 sm:py-1.5 text-xs flex gap-0.5 items-center rounded-full text-black">
-                          <AiFillCaretUp />
-                          <span>{item.percentage}</span>
-                        </div>
-                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='flex items-center gap-3'>
-                <div className="p-1.5 sm:p-3 rounded-full border border-gray-150 flex items-center gap-2.5">
-                  <span className="badge-rank-1"></span>
-                  <div className="space-y-0.5">
-                    <div className="flex gap-2 text-xs">
-                      <span className="text-gray-600">Caller</span>
-                    </div>
-                    <div className="flex gap-1 items-center">
-                      <span className="font-bold text-sm">UsernameLong</span>
-                      <span className="text-xs text-gray-600">55%</span>
-                    </div>
-                  </div>
-                </div>
-                <button className="bg-gray-100 text-gray-400 w-8 h-8 circle-item mr-4 !hidden xl:!flex">
-                  <FaChevronRight />
-                </button>
-              </div>
-            </div>
-          </Link>
-          ))}
+        <div className="p-4 sm:p-6 flex flex-col gap-3 overflow-auto flex-grow" onClick={() => setIsOpen(false)}>
+          { isLoading || !callList.length ?
+          <SkeletonList />
+         : 
+          callList.map((item) => <CallRow call={item} key={item.id} />)
+        }
         </div>
       </div>
     </div>

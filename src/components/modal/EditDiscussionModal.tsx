@@ -8,35 +8,54 @@ import IconTelegram from 'assets/img/icons/telegram.svg';
 import IconSolana from 'assets/img/icons/solana.svg';
 import { IoCheckmark } from "react-icons/io5";
 import IconUser from 'assets/img/icons/user.svg';
-
+import { formatShortAddress, formatTimestamp } from "../../utils/style";
+import React, { useEffect, useState,useRef } from "react";
 const EditDiscussionModal = ({
+    comment,
+    id,
+    user,
     isOpen,
     onOk,
     onCancel,
-  }: Readonly<{
+    onChange
+}: Readonly<{
+    user:any,
+    id:string,
+    comment:string,
     isOpen: boolean,
     onOk: () => void
     onCancel: () => void
-  }>) => {
+    onChange: (id:string,news:string) => void
+}>) => {
+  const [newscomment, setNewscomment] = useState('');  
+  const handlechange = () => {
+    if (newscomment !== '') { onChange(id, newscomment); }
+    onOk();
+  }
+  
   return <Modal isOpen={isOpen} onClose={onCancel} extraClass="w-[540px]">
     <div className="space-y-4 sm:space-y-6">
       <h1 className="text-lg font-bold text-white">Comment edit</h1>
       <div className="border border-gray-100"></div>
       <div className="flex gap-3 items-center">
         <div className="w-8 h-8 bg-black circle-item">
-          <img src={IconUser} className="w-2.5 h-2.5" />
+          {user.avatar == null ? <img src={IconUser} className="w-2.5 h-2.5" /> :
+             <img src={user.avatar} className="w-8 h-8 sm:w-[30px] sm:h-[30px] bg-black circle-item" />
+          }
         </div>
-        <span className="font-bold">UsernameLong</span>
-        <span className="text-sm text-gray-600">3m</span>
+        <span className="font-bold">{user.name}</span>
+        <span className="text-sm text-gray-600">{formatTimestamp(user.created_at)} ago</span>
       </div>
       <textarea
         placeholder="Write a short bio..."
-        defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consectetur ligula. Mauris congue imperdiet ante non lobortis. In ante tellus, ultrices a consectetur a, euismod vel leo. Fusce dictum pellentesque orci ac malesuada."
+        defaultValue={comment}
+        onChange={(e) => setNewscomment(e.target.value)}
+        onClick={(e) => setNewscomment('')}
         className="bg-gray-50 rounded-[20px] flex-grow outline-none placeholder-gray-500 resize-none p-3 sm:p-5 w-full text-gray-600"
         rows={6}
       ></textarea>
       {/* Save Button */}
-      <button className="w-full btn py-3" onClick={() => onOk()}>Save</button>
+      <button className="w-full btn py-3" onClick={handlechange}>Save</button>
     </div>
   </Modal>
 }

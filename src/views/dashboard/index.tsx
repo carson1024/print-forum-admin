@@ -4,23 +4,84 @@ import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { getMultiplierType, getRankChar } from "utils/style";
 import IconUser from 'assets/img/icons/user.svg';
+import EditDiscussionModal from "../../components/modal/EditDiscussionModal";
 import { MdEdit } from "react-icons/md";
 import Header from "components/header";
+import { useEffect } from 'react';
+import { supabase } from "lib/supabase";
+import { formatShortAddress, formatTimestamp } from "../../utils/style";
+import { SkeletonList, SkeletonRow } from "../../utils/skeleton";
 
 const Dashboard = () => {
+  const token = sessionStorage.getItem("accessToken")
+  if (!token || token !== "admin") { window.location.href = "/login";}
   const [activeTab, setActiveTab] = useState<'featured' | 'latest'>('featured');
   const [filter, setFilter] = useState("All Ranks");
-  const forumData = [
-    { id: 1, name: "$PEPESI", multiplier: "10X", rank: "1", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 2, name: "$PEPESI", multiplier: "100X", rank: "2", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 3, name: "$PEPESI", multiplier: "20X", rank: "3", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 4, name: "$PEPESI", multiplier: "10X", rank: "4", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 5, name: "$PEPESI", multiplier: "100X", rank: "6", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 6, name: "$PEPESI", multiplier: "20X", rank: "10", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 7, name: "$PEPESI", multiplier: "20X", rank: "10", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-    { id: 8, name: "$PEPESI", multiplier: "20X", rank: "10", caller: "UsernameLong", marketcap: "475.5k to 880.4k", percentage: "519%" },
-  ];
+  const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [calls, setCalls] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [newcomment, setNewcomment] = useState(''); 
+  const [commentID, setCommentID] = useState(''); 
+  const [commentUser, setCommentUser] = useState({}); 
+  const [updatedcomment, setUpdatedcomment] = useState('');
+  const [indexnumber, setIndexnumber] = useState(null);
 
+  const saveNewcomment = async(id:string, news:string) => {
+    const { error: updateError } = await supabase
+          .from("comments")
+          .update({ comment:news })
+          .eq("id", id);
+        if (updateError) {
+          console.error("Update failed:", updateError);
+        } else {
+          setUpdatedcomment(news);
+          comments[indexnumber].comment = news;
+        }
+  }
+  useEffect(() => {
+    setIsLoading(true)
+     const scan = async () => {
+     const { data, error } = await supabase
+              .from("users")
+              .select("*")
+              .order("created_at", { ascending: false });
+           if (error) {
+              console.error("Fetch failed:", error);
+              return; 
+               }
+           if (data.length > 0) {
+             setUsers(data)
+           }
+       const { data:allcalls, error:allcallserror } = await supabase
+              .from("calls")
+              .select("*")
+              .order("created_at", { ascending: false });
+           if (allcallserror) {
+              console.error("Fetch failed:", allcallserror);
+              return; 
+              }
+           if (allcalls.length > 0) {
+             setCalls(allcalls)
+         } 
+       const { data:allcomments, error:allcommentserror } = await supabase
+              .from("comments")
+              .select("*,users(*)")
+              .order("created_at", { ascending: false });
+           if (allcommentserror) {
+              console.error("Fetch failed:", allcommentserror);
+              return; 
+              }
+           if (allcomments.length > 0) {
+             setComments(allcomments)
+           } 
+    
+     };
+    scan(); 
+    setIsLoading(false)
+  }, []);
+  
   return (<>
     <div className="flex gap-5 h-full">
       <div className="card flex-grow p-0 flex flex-col overflow-hidden">
@@ -37,55 +98,63 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center rounded px-6 py-6 lg:px-8 lg:py-8 bg-gray-50">
               <div className="py-4 space-y-1">
-                <div className="text-2xl font-bold">14.7k</div>
-                <div className="text-sm text-gray-600">Users total<span className="ml-1 text-green-600">+786</span></div>
+                <div className="text-2xl font-bold">{users.length}</div> 
+                <div className="text-sm text-gray-600">Users total<span className="ml-1 text-green-600">+{users.length}</span></div>
               </div>
             </div>
             <div className="flex items-center rounded p-8 bg-gray-50">
               <div className="py-4 space-y-1">
-                <div className="text-2xl font-bold">458</div>
-                <div className="text-sm text-gray-600">Users copy trading<span className="ml-1 text-green-600">+24</span></div>
+                <div className="text-2xl font-bold">{calls.length}</div>
+                <div className="text-sm text-gray-600">Calls total<span className="ml-1 text-green-600">+{calls.length}</span></div>
               </div>
             </div>
             <div className="flex items-center rounded p-8 bg-gray-50">
               <div className="py-4 space-y-1">
-                <div className="text-2xl font-bold">458</div>
-                <div className="text-sm text-gray-600">Users copy trading<span className="ml-1 text-green-600">+24</span></div>
+                <div className="text-2xl font-bold">{comments.length}</div>
+                <div className="text-sm text-gray-600">Comments total<span className="ml-1 text-green-600">+{comments.length}</span></div>
               </div>
             </div>
           </div>
-          <div className="p-6 space-y-2 bg-gray-50 rounded">
+          <div className="p-6 space-y-2 bg-gray-50 rounded  flex-col gap-5 flex-grow ">
             <div className="text-md font-semibold">Latest comments</div>
+            {isLoading || ! comments.length ?<div className=""><SkeletonList/></div>:
             <div>
-              {Array(5).fill(0).map((item, index) => (<Link to="" key={index}>
+              {comments.map((item, index) => (<Link to="" key={index}>
                 <div className="flex gap-4 py-4 border-b-[1px]">
-                  <div className="relative w-8 h-8 sm:w-[50px] sm:h-[50px] bg-black circle hidden sm:flex items-center justify-center">
-                    <img src={IconUser} className="w-2 h-2 sm:w-4 sm:h-4" />
-                  </div>
+                  {
+                  isLoading==true || item.users.avatar==null? <div className="relative w-8 h-8 sm:w-[50px] sm:h-[50px] bg-black circle hidden sm:flex items-center justify-center">
+                      <img src={IconUser} className="w-2 h-2 sm:w-4 sm:h-4" />
+                    </div> :
+                    <div className="relative w-8 h-8 sm:w-[50px] sm:h-[50px] bg-black circle hidden sm:flex items-center justify-center">
+                      <img src={item.users.avatar} className="w-8 h-8 sm:w-[50px] sm:h-[50px] bg-black circle-item" />
+                    </div>
+                  }
+                  
                   <div className="space-y-2 grow">
                     <div className="flex gap-2 items-center">
-                      <div className="circle-item min-w-7 w-7 h-7 bg-red-300 text-black text-sm font-bold">V</div>
+                      <div className={"circle-item min-w-7 w-7 h-7 bg-red-300 text-black text-sm font-bold badge-rank-" + item.users.rank}></div>
                       <div className="flex gap-x-2 items-center flex-wrap">
-                        <span className="font-bold text-gray-600">UsernameLong</span>
-                        <span className="text-xs text-gray-600">55%</span>
-                        <div className="text-sm text-gray-600">1 min ago</div>
+                        <span className="font-bold text-gray-600">{item.users.name}</span>
+                        <span className="text-xs text-gray-600">{item.users.winrate}%</span>
+                        <div className="text-sm text-gray-600">{ formatTimestamp(item.created_at)} ago</div>
                       </div>
                       <div className="ml-auto">
-                        <button className="btn btn-edit">
+                        <button className="btn btn-edit" onClick={() => { setIsEditProfileModalOpen(true); setNewcomment(item.comment); setCommentID(item.id); setCommentUser(item.users); setIndexnumber(index); }}>
                           <MdEdit className="" size={16} /> <span className="hidden sm:block ml-1">Edit</span>
                         </button>
                       </div>
                     </div>
-                    <div className="text-sm">Lorem ipsum dolor sit amet, consectetur.</div>
+                    <div className="text-sm">{item.comment}</div>
                   </div>
                 </div>
               </Link>
               ))}
-            </div>
+            </div>}
           </div>
         </div>
       </div>
     </div>
+    <EditDiscussionModal comment={newcomment} user={commentUser} id={commentID} isOpen={isEditProfileModalOpen}  onOk={() => setIsEditProfileModalOpen(false)} onCancel={() => setIsEditProfileModalOpen(false)} onChange={(id,news) => saveNewcomment(id,news)}  />
   </>
   );
 }

@@ -27,7 +27,7 @@ const routes = [
   {
     key: "users",
     layout: "admin",
-    path: "profile/*",
+    path: "profile",
     component: <ProfileDetail />,
   },
   {
