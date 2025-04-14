@@ -19,6 +19,8 @@ import { CallReportType } from "../../cache/calls";
 import { useLocation } from "react-router-dom";
 
 const TokenDetail = () => {
+ const token = sessionStorage.getItem("accessToken")
+  if (!token || token !== "admin") { window.location.href = "/login";}
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'token' | 'callers' | 'discussion'>('token');
   const [isLoading, setIsLoading] = useState(true);

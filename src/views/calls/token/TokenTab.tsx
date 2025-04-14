@@ -25,7 +25,8 @@ const TokenTab = ({
   top10HolderInfo:any,
   token: any,
   profile:any
-}) => {
+  }) => {
+  
   const [isEditLinkModalOpen, setIsEditLinkModalOpen] = useState(false);
   const savelink = async (id: string, xaddress: string, taddress: string, saddress: string) => {
   const updates: { [key: string]: string } = {};

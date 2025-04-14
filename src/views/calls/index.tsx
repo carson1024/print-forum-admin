@@ -32,6 +32,8 @@ function useOutsideAlerter(ref: any, setX: any): void {
 
 
 const Calls = () => {
+  const token = sessionStorage.getItem("accessToken")
+  if (!token || token !== "admin") { window.location.href = "/login";}
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState<"featured" | "latest">(searchParams.get('type') as "featured" | "latest" || 'latest');
   const [isLoading, setIsLoading] = useState(true);
