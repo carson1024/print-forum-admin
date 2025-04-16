@@ -278,39 +278,39 @@ const GeneralTab = ({ myprofile }: Props) => {
             </div>
             <div className="flex justify-between">
               <div className="flex flex-wrap gap-2">
-                {myprofile?.achievements.includes("OG") ? <span className="badge-other-og"></span> : <></>}
-                {myprofile?.achievements.includes("1x") ? <span className="badge-rank-1"></span> : <></>}
-                {myprofile?.achievements.includes("2x") ? <span className="badge-rank-2"></span> : <></>}
-                {myprofile?.achievements.includes("3x") ? <span className="badge-rank-3"></span> : <></>}
-                {myprofile?.achievements.includes("4x") ? <span className="badge-rank-4"></span> : <></>}
-                {myprofile?.achievements.includes("5x") ? <span className="badge-rank-5"></span> : <></>}
-                {myprofile?.achievements.includes("6x") ? <span className="badge-rank-6"></span> : <></>}
-                {myprofile?.achievements.includes("7x") ? <span className="badge-rank-7"></span> : <></>}
-                {myprofile?.achievements.includes("8x") ? <span className="badge-rank-8"></span> : <></>}
-                {myprofile?.achievements.includes("9x") ? <span className="badge-rank-9"></span> : <></>}
-                {myprofile?.achievements.includes("10x") ? <span className="badge-rank-1"></span> : <></>}
-                {myprofile?.achievements.includes("t") ? <span className="badge-social-telegram"></span> : <></>}
-                {myprofile?.achievements.includes("x") ? <span className="badge-social-twitter"></span> : <></>}
-                {myprofile?.achievements.includes("s") ? <span className="badge-social-solana"></span> : <></>}
-                {myprofile?.achievements.includes("c5x") ? <span className="badge-call-5X"></span> : <></>}
-                {myprofile?.achievements.includes("c10x") ? <span className="badge-call-10X"></span> : <></>}
-                {myprofile?.achievements.includes("c50x") ? <span className="badge-call-50X"></span> : <></>}
-                {myprofile?.achievements.includes("c100x") ? <span className="badge-call-100X"></span> : <></>}
-                {myprofile?.achievements.includes("u10") ? <span className="badge-user-10"></span> : <></>}
-                {myprofile?.achievements.includes("u50") ? <span className="badge-user-50"></span> : <></>}
-                {myprofile?.achievements.includes("u100") ? <span className="badge-user-100"></span> : <></>}
-                {myprofile?.achievements.includes("m50k") ? <span className="badge-money-50k"></span> : <></>}
-                {myprofile?.achievements.includes("m100k") ? <span className="badge-money-100k"></span> : <></>}
-                {myprofile?.achievements.includes("m500k") ? <span className="badge-money-500k"></span> : <></>}
-                {myprofile?.achievements.includes("m1m") ? <span className="badge-money-1m"></span> : <></>}
-                {myprofile?.achievements.includes("reg1m") ? <span className="badge-register-1m"></span> : <></>}
-                {myprofile?.achievements.includes("reg3m") ? <span className="badge-register-3m"></span> : <></>}
-                {myprofile?.achievements.includes("reg1y") ? <span className="badge-register-1y"></span> : <></>}
+                {myprofile?.achievements.includes("OG") ? <span className="badge-other-og" title="You registed in this site"></span> : <></>}
+                {myprofile?.achievements.includes("1x") ? <span className="badge-rank-1" title="You reached rank 1"></span> : <></>}
+                {myprofile?.achievements.includes("2x") ? <span className="badge-rank-2" title="You reached rank 2"></span> : <></>}
+                {myprofile?.achievements.includes("3x") ? <span className="badge-rank-3" title="You reached rank 3"></span> : <></>}
+                {myprofile?.achievements.includes("4x") ? <span className="badge-rank-4" title="You reached rank 4"></span> : <></>}
+                {myprofile?.achievements.includes("5x") ? <span className="badge-rank-5" title="You reached rank 5"></span> : <></>}
+                {myprofile?.achievements.includes("6x") ? <span className="badge-rank-6" title="You reached rank 6"></span> : <></>}
+                {myprofile?.achievements.includes("7x") ? <span className="badge-rank-7" title="You reached rank 7"></span> : <></>}
+                {myprofile?.achievements.includes("8x") ? <span className="badge-rank-8" title="You reached rank 8"></span> : <></>}
+                {myprofile?.achievements.includes("9x") ? <span className="badge-rank-9" title="You reached rank 9"></span> : <></>}
+                {myprofile?.achievements.includes("10x") ? <span className="badge-rank-10" title="You reached rank 10"></span> : <></>}
+                {myprofile?.achievements.includes("t") ? <span className="badge-social-telegram" title="You set your Telegram address"></span> : <></>}
+                {myprofile?.achievements.includes("x") ? <span className="badge-social-twitter" title="You set your Twitter address"></span> : <></>}
+                {myprofile?.achievements.includes("s") ? <span className="badge-social-solana" title="You set your Solana address"></span> : <></>}
+                {myprofile?.achievements.includes("c5x") ? <span className="badge-call-5X" title="You get 5X marketCap"></span> : <></>}
+                {myprofile?.achievements.includes("c10x") ? <span className="badge-call-10X" title="You get 10X marketCap"></span> : <></>}
+                {myprofile?.achievements.includes("c50x") ? <span className="badge-call-50X" title="You get 50X marketCap"></span> : <></>}
+                {myprofile?.achievements.includes("c100x") ? <span className="badge-call-100X" title="You get 100X marketCap"></span> : <></>}
+                {myprofile?.achievements.includes("u10") ? <span className="badge-user-10" title="10 people copytrade you"></span> : <></>}
+                {myprofile?.achievements.includes("u50") ? <span className="badge-user-50" title="50 people copytrade you"></span> : <></>}
+                {myprofile?.achievements.includes("u100") ? <span className="badge-user-100" title="100 people copytrade you"></span> : <></>}
+                {myprofile?.achievements.includes("m50k") ? <span className="badge-money-50k" title="You earn 50K-money"></span> : <></>}
+                {myprofile?.achievements.includes("m100k") ? <span className="badge-money-100k" title="You earn 100K-money"></span> : <></>}
+                {myprofile?.achievements.includes("m500k") ? <span className="badge-money-500k" title="You earn 500K-money"></span> : <></>}
+                {myprofile?.achievements.includes("m1m") ? <span className="badge-money-1m" title="You earn 1m-money"></span> : <></>}
+                {myprofile?.achievements.includes("reg1m") ? <span className="badge-register-1m" title="Your account has 1 month history"></span> : <></>}
+                {myprofile?.achievements.includes("reg3m") ? <span className="badge-register-3m" title="Your account has 3 month history"></span> : <></>}
+                {myprofile?.achievements.includes("reg1y") ? <span className="badge-register-1y" title="Your account has 1 year history"></span> : <></>}
                 {myprofile?.achievements.includes("influ") ? <span className="badge-other-influencer"></span> : <></>}
                 {myprofile?.achievements.includes("alpha") ? <span className="badge-other-alpha"></span> : <></>}
-                {myprofile?.achievements.includes("partner") ? <span className="badge-other-partner"></span> : <></>}
+                {myprofile?.achievements.includes("partner") ? <span className="badge-other-partner" title="You have best partner"></span> : <></>}
                 {myprofile?.achievements.includes("never") ? <span className="badge-other-neverskip"></span> : <></>}
-                {myprofile?.achievements.includes("bug") ? <span className="badge-other-bughunter"></span> : <></>}
+                {myprofile?.achievements.includes("bug") ? <span className="badge-other-bughunter" title="You find bugs of this site"></span> : <></>}
 
                 {/* <span className="badge-money-50k"></span>
                 <span className="badge-register-1m"></span>

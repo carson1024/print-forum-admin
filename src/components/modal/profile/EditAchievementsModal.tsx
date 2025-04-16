@@ -51,7 +51,7 @@ const EditAchievementsModal = ({
 
   return <Modal isOpen={!!editMode} onClose={onCancel} extraClass="w-[540px]">
     <div className="space-y-4 sm:space-y-6">
-      <h1 className="text-md sm:text-lg font-bold text-white">UsernameLong’s achievements</h1>
+      <h1 className="text-md sm:text-lg font-bold text-white">Edit achievements</h1>
       <div className="border border-gray-100"></div>
       <div className="flex flex-wrap gap-2 items-center">
         {
