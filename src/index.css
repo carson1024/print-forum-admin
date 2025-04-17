@@ -209,3 +209,11 @@ input {
     background-position: 400px 0;
   }
 }
+.tippy-box[data-theme~='yellowTooltip'] {
+ 
+  color: #facc15;           /* Tailwind's yellow-400 */
+  font-size: 0.875rem;      /* text-sm */
+  border-radius: 0.25rem;   /* rounded */
+  padding: 4px 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
